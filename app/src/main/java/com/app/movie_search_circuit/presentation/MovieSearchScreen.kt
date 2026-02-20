@@ -7,7 +7,10 @@ import com.slack.circuit.runtime.CircuitUiState
 import com.slack.circuit.runtime.screen.Screen
 
 object MovieSearchScreen : Screen, Parcelable {
+    enum class Tab { HOME, SEARCH, LIKES }
+
     data class State(
+        val selectedTab: Tab,
         val query: String,
         val isInitialLoading: Boolean,
         val isSearching: Boolean,
@@ -25,6 +28,7 @@ object MovieSearchScreen : Screen, Parcelable {
     )
 
     sealed interface Event : CircuitUiEvent {
+        data class TabChanged(val tab: Tab) : Event
         data class QueryChanged(val query: String) : Event
         data object SearchClicked : Event
     }

@@ -14,6 +14,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -32,6 +34,28 @@ fun MovieSearchUi(
     Scaffold(
         modifier = modifier,
         topBar = { TopAppBar(title = { Text("TMDB Movie Search") }) },
+        bottomBar = {
+            NavigationBar {
+                NavigationBarItem(
+                    selected = state.selectedTab == MovieSearchScreen.Tab.HOME,
+                    onClick = { state.eventSink(MovieSearchScreen.Event.TabChanged(MovieSearchScreen.Tab.HOME)) },
+                    icon = { Text("●") },
+                    label = { Text("홈") },
+                )
+                NavigationBarItem(
+                    selected = state.selectedTab == MovieSearchScreen.Tab.SEARCH,
+                    onClick = { state.eventSink(MovieSearchScreen.Event.TabChanged(MovieSearchScreen.Tab.SEARCH)) },
+                    icon = { Text("●") },
+                    label = { Text("검색") },
+                )
+                NavigationBarItem(
+                    selected = state.selectedTab == MovieSearchScreen.Tab.LIKES,
+                    onClick = { state.eventSink(MovieSearchScreen.Event.TabChanged(MovieSearchScreen.Tab.LIKES)) },
+                    icon = { Text("●") },
+                    label = { Text("좋아요") },
+                )
+            }
+        },
     ) { innerPadding ->
         Column(
             modifier = Modifier

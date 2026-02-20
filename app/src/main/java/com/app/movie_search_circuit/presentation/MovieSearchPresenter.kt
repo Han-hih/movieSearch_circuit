@@ -19,6 +19,7 @@ class MovieSearchPresenter(
 
     @Composable
     override fun present(): MovieSearchScreen.State {
+        var selectedTab by rememberSaveable { mutableStateOf(MovieSearchScreen.Tab.HOME) }
         var query by rememberSaveable { mutableStateOf("") }
         var isInitialLoading by remember { mutableStateOf(false) }
         var isSearching by remember { mutableStateOf(false) }
@@ -47,6 +48,10 @@ class MovieSearchPresenter(
 
         val eventSink: (MovieSearchScreen.Event) -> Unit = { event ->
             when (event) {
+                is MovieSearchScreen.Event.TabChanged -> {
+                    selectedTab = event.tab
+                }
+
                 is MovieSearchScreen.Event.QueryChanged -> {
                     query = event.query
                 }
@@ -73,6 +78,7 @@ class MovieSearchPresenter(
         }
 
         return MovieSearchScreen.State(
+            selectedTab = selectedTab,
             query = query,
             isInitialLoading = isInitialLoading,
             isSearching = isSearching,
