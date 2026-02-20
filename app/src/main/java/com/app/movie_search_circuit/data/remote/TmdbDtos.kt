@@ -14,4 +14,6 @@ data class TmdbMovieDto(
     val title: String,
     @SerializedName("release_date")
     val releaseDate: String? = null,
+    @SerializedName("poster_path")
+    val posterPath: String? = null,
 )
